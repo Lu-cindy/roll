@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class cameramove : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class cameramove : MonoBehaviour {
 	bool bchnage = true;
 	Vector3 offset;
 	Vector3 change;
+    
+    DateTime curr;
 
 	// Use this for initialization
 	void Start () {
@@ -16,14 +19,24 @@ public class cameramove : MonoBehaviour {
 		offset = transform.position - player.position;
 		change = new Vector3 (0,2,0);
 
+        curr = DateTime.Now;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+        
+
 		if (Input.GetKey (KeyCode.C))
 		{
-			bchnage = !bchnage;
+            TimeSpan ts = DateTime.Now - curr;
+			
+            if( ts.Seconds > 1)
+                bchnage = !bchnage;
+            Debug.Log("change camera");
+
+            curr = DateTime.Now;
 		}
 
 		if(bchnage)
